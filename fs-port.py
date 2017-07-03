@@ -53,7 +53,7 @@ if str(options.range) != "None":
 	x = separador[0].strip()
 	y = separador[1].strip()
 	try:
-		for port in range(int(x),int(y)):
+		for port in range(int(x),int(y)+1):
 			print testa(str(sys.argv[len(sys.argv)-1]),port)
 
 	except KeyboardInterrupt:
