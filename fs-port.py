@@ -38,35 +38,73 @@ def testa(ip,porta):
 
 
 ## Se a opcao FULL for escolhida ##
+x = None
 if str(options.full) != "None":
-	try:
+	x = 0
+	def keepon(x):
+		global x
 		for port in range(0,49152):
 			print testa(str(sys.argv[len(sys.argv)-1]),port)
-
+			x += 1
+	try:
+		keepon(x)
+		
 	except KeyboardInterrupt:
-		print "\nSaindo..."
-		sys.exit()
+		keepon_or_giveup = raw_input("Voce quer pausar(p)/continuar(c)/sair(s)? ")
+		if keepon_or_giveup == 'p':
+			avulso = raw_input("Quando quiser continuar aperte enter! Ou digite \"s\" e de enter para sair")
+			if avulso != 's': keepon(x)
+		elif keepon_or_giveup == 'c':
+			keepon(x)
+		elif keepon_or_giveup == 's':
+			sys.exit(1)
+		#print "\nSaindo..."
+		#sys.exit()
 
 ## Se a opcao RANGE for escolhida ##
+x = None
 if str(options.range) != "None":
 	separador = options.range.split(',')
 	x = separador[0].strip()
 	y = separador[1].strip()
-	try:
+	def keepon(x, y):
+		global x
 		for port in range(int(x),int(y)):
 			print testa(str(sys.argv[len(sys.argv)-1]),port)
-
+			x += 1
+	try:
+		keepon(x, y)
 	except KeyboardInterrupt:
-		print "\nSaindo..."
-		sys.exit()
+		keepon_or_giveup = raw_input("Voce quer pausar(p)/continuar(c)/sair(s)? ")
+		if keepon_or_giveup == 'p':
+			avulso = raw_input("Quando quiser continuar aperte enter! Ou digite \"s\" e de enter para sair")
+			if avulso != 's': keepon(x, y)
+		elif keepon_or_giveup == 'c':
+			keepon(x, y)
+		elif keepon_or_giveup == 's':
+			sys.exit(1)
+		#print "\nSaindo..."
+		#sys.exit()
 
 ## Se a opcao MANUAL for escolhida ##
+lista = None
 if str(options.manual) != "None":
 	lista = options.manual.split(',')
+	def keepon(lista):
+		global lista
+		for port in range(len(lista)):
+			print testa(str(sys.argv[len(sys.argv)-1]),int(lista[port]))
+			lista.pop(port)
 	try:
-		for port in lista:
-			print testa(str(sys.argv[len(sys.argv)-1]),int(port))
-
+		keepon(lista)
 	except KeyboardInterrupt:
-		print "\nSaindo..."
-		sys.exit()
+		keepon_or_giveup = raw_input("Voce quer pausar(p)/continuar(c)/sair(s)? ")
+		if keepon_or_giveup == 'p':
+			avulso = raw_input("Quando quiser continuar aperte enter! Ou digite \"s\" e de enter para sair")
+			if avulso != 's': keepon(lista)
+		elif keepon_or_giveup == 'c':
+			keepon(lista)
+		elif keepon_or_giveup == 's':
+			sys.exit(1)
+		#print "\nSaindo..."
+		#sys.exit()
