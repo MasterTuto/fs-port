@@ -28,7 +28,10 @@ def testa(ip,porta):
 		abre_sock.settimeout(2) ## Define tempo de espera para TimeOut na porta.
 		resultado = abre_sock.connect_ex((ip,porta))
 		if resultado == 0:
-			return "Port {}: Open".format(porta)
+			try:
+				return "Port {} ({}): Open".format(porta, socket.getservbyport(str(porta))
+			except:
+				return "Port {} (unknown): Open".format(porta)
 		else:
 			return "Port {}: Close".format(porta)
 		abre_sock.close()
